@@ -6,34 +6,43 @@ const config = require('../utils/config')
 const midddleware = require('../utils/midddleware')
 
 userRouter.post('/api/login', async (req, res, next) => {
+  try {
     const { username, password } = req.body;
-  
-    // Find the user by username
+
     const user = await User.findOne({ where: { username } });
-  
+
     if (!user) {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
-  
-    // Check the password (replace 'secret' with your hardcoded password)
+
     if (password !== 'secret') {
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
     if (user.disabled) {
       return response.status(401).json({
-        error: 'account disabled, please contact admin'
-      })
+        error: 'Account disabled, please contact admin'
+      });
     }
-  
-    const token = jwt.sign({ userId: user.id, username: user.username, name: user.name }, config.SECRET, {
-        expiresIn: '1h', // Token expiration time (adjust as needed)
-    });
-    
+
+    const token = jwt.sign(
+      { userId: user.id, username: user.username, name: user.name },
+      config.SECRET,
+      {
+        expiresIn: '3h', // Token expiration time (adjust as needed)
+      }
+    );
+
     await Session.create({ token, userId: user.id });
-    
+
     res.status(200).json({ token });
-  });
+  } catch (error) {
+    // Handle any errors that occur during the login process
+    console.error('Error during login:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 
   
