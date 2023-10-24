@@ -25,6 +25,7 @@ authorRouter.get('/api/authors', async (req, res, next) => {
     res.json(authorsStats);
   } catch (error) {
     next(error);
+    res.status(500).json({ error: 'Internal server error.' });
   }
 });
 
@@ -47,6 +48,7 @@ authorRouter.put('/:username', midddleware.tokenExtractor, midddleware.isAdmin, 
     }
   } catch (error) {
     next(error);
+    res.status(500).json({ error: 'Internal server error.' });
   }
   })
 module.exports = authorRouter;

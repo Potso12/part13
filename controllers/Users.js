@@ -75,6 +75,8 @@ userRouter.post('/api/users', async (req, res, next) => {
     res.status(201).json(user);
   } catch (error) {
     next(error);
+    res.status(500).json({ error: 'Internal server error.' });
+
   }
 });
 
@@ -88,6 +90,7 @@ userRouter.get('/api/users', async (req, res, next) => {
       res.json(users);
     } catch (error) {
       next(error);
+      res.status(500).json({ error: 'Internal server error.' });
     }
   });
 
@@ -164,6 +167,7 @@ userRouter.put('/api/users/:username', async (req, res, next) => {
     }
   } catch (error) {
     next(error);
+    res.status(500).json({ error: 'Internal server error.' });
   }
 });
 

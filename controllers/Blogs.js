@@ -14,6 +14,7 @@ const blogFinder = async (req, res, next) => {
     next();
   } catch (error) {
     next(error); // Pass the error to the error handling middleware
+    res.status(500).json({ error: 'Internal server error.' });
   }
 };
 
@@ -45,6 +46,7 @@ blogRouter.get('/api/blogs', async (req, res, next) => {
         res.json(blogs);
     } catch (error) {
         next(error);
+        res.status(500).json({ error: 'Internal server error.' });
     }
 });
 
@@ -55,6 +57,8 @@ blogRouter.get('/api/blogs/:id', blogFinder, async (req, res, next) => {
     res.json(req.blog);
   } else {
     next({ name: 'NotFound' }); // Throw a custom error when blog is not found
+    res.status(500).json({ error: 'Internal server error.' });
+
   }
 });
 
@@ -83,6 +87,7 @@ blogRouter.delete('/api/blogs/:id', middlevare.verifyToken, async (req, res, nex
       res.status(204).end();
     } catch (error) {
       next(error);
+      res.status(500).json({ error: 'Internal server error.' });
     }
   });
 
@@ -109,6 +114,7 @@ blogRouter.post('/api/blogs', middlevare.verifyToken, async (req, res, next) => 
       res.status(201).json(newBlog);
     } catch (error) {
       next(error);
+      res.status(500).json({ error: 'Internal server error.' });
     }
   });
 
