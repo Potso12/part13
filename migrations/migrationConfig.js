@@ -71,7 +71,7 @@ module.exports = {
         },
       });
       
-    await queryInterface.addColumn('blogs', 'year', {
+    /*await queryInterface.addColumn('blogs', 'year', {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
@@ -79,7 +79,7 @@ module.exports = {
           min: 1991,
           max: new Date().getFullYear(),
         },
-      });  
+      });  */
       
       await queryInterface.createTable('reading_lists', {
         id: {

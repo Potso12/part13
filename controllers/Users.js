@@ -94,7 +94,7 @@ userRouter.get('/api/users', async (req, res, next) => {
           {
             model: Blog,
             as: 'readings',
-            attributes: ['id', 'url', 'title', 'author', 'likes'],
+            attributes: ['id', 'url', 'title', 'author', 'likes', 'year'],
             through: {
               attributes: ['read', 'blogId'], // You can specify the attributes of the connecting table here
             },
@@ -114,7 +114,8 @@ userRouter.get('/api/users', async (req, res, next) => {
         const isRead = blog.read;
         return (readParam === 'true' && isRead) || (readParam === 'false' && !isRead);
       });
-  
+
+      console.log(user.readings)
       // Create a response object
       const responseUser = {
         id: user.id,

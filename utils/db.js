@@ -3,7 +3,10 @@ const { DB_URL } = require('./config')
 const { Umzug, SequelizeStorage } = require('umzug')
 
 
-const sequelize = new Sequelize(DB_URL)
+const sequelize = new Sequelize(DB_URL , { 
+  pool: {
+  max: 5 } 
+})
 
 const connectToDatabase = async () => {
   try {
