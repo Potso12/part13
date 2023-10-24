@@ -99,11 +99,11 @@ blogRouter.put('/api/blogs/:id', blogFinder, async (req, res, next) => {
 
 blogRouter.post('/api/blogs', middlevare.verifyToken, async (req, res, next) => {
     try {
-        const { title, content, likes = 0 } = req.body; // Set likes to 0 if not provided
+        const { title, content, likes = 0, year } = req.body; // Set likes to 0 if not provided
         const user = req.user; // Get the user from the token verification middleware
   
       // Create a new blog associated with the current user
-      const newBlog = await Blog.create({ title, content, likes, author: user.id });
+      const newBlog = await Blog.create({ title, content, likes, year, author: user.name });
   
       res.status(201).json(newBlog);
     } catch (error) {

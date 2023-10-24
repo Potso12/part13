@@ -1,6 +1,7 @@
 // server.js
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const blogRouter = require('./controllers/Blogs')
 const userRouter = require('./controllers/Users')
 const authorRouter = require('./controllers/Author')
@@ -16,8 +17,11 @@ app.use(blogRouter);
 app.use(userRouter);
 app.use(authorRouter);
 app.use(readingListRouter);
+app.use(cors());
+
 
 app.use(midddleware.errorHandler)
+
 
 
 // Start the server

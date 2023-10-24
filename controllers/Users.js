@@ -61,8 +61,8 @@ userRouter.delete('/api/logout',midddleware.verifyToken , async (req, res) => {
 // POST api/users (adding a new user)
 userRouter.post('/api/users', async (req, res, next) => {
   try {
-    const { username, name } = req.body;
-    const user = await User.create({ username, name });
+    const { username, name, admin, disabled } = req.body;
+    const user = await User.create({ username, name, admin, disabled });
     res.status(201).json(user);
   } catch (error) {
     next(error);
