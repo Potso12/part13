@@ -33,7 +33,7 @@ Blog.init(
       defaultValue: 0,
     },
     year: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
     }
   },
   {
