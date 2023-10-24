@@ -30,6 +30,8 @@ authorRouter.get('/api/authors', async (req, res, next) => {
 
   
 authorRouter.put('/:username', midddleware.tokenExtractor, midddleware.isAdmin, async (req, res) => {
+  try {
+
     const user = await User.findOne({
       where: {
         username: req.params.username
@@ -43,5 +45,8 @@ authorRouter.put('/:username', midddleware.tokenExtractor, midddleware.isAdmin, 
     } else {
       res.status(404).end()
     }
+  } catch (error) {
+    next(error);
+  }
   })
 module.exports = authorRouter;
